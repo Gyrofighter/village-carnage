@@ -25,10 +25,5 @@ void AVCBaseCharacter::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void AVCBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
 

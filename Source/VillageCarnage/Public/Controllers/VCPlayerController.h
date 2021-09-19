@@ -6,12 +6,56 @@
 #include "GameFramework/PlayerController.h"
 #include "VCPlayerController.generated.h"
 
-/**
- * 
- */
+class UPathFollowingComponent;
+
 UCLASS()
 class VILLAGECARNAGE_API AVCPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+
+	AVCPlayerController();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Components)
+	UPathFollowingComponent* PathFollowing;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Control)
+	TEnumAsByte<ETraceTypeQuery> TouchTraceType = ETraceTypeQuery::TraceTypeQuery1;
+
+
+protected:
+
+	virtual void BeginPlay() override;
+
+	virtual void SetupInputComponent() override;
+
+	virtual void OnPossess(APawn* InPawn) override;
+
+	virtual void OnUnPossess() override;
+
+	virtual void PlayerTick(float DeltaTime) override;
+
+private:	
+
+	bool bTouched = false;
+
+	void TouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
+
+	void TouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
+
+	void MoveCharacter();
+
+	void GoToLocation(const FVector Location);
+
+	void PausePathFollowing();
+
+	//Server side
+	UFUNCTION(Server, Reliable)
+	void ServerGoToLocation(const FVector Location);
+
+	UFUNCTION(Server, Reliable)
+	void ServerPausePathFollowing();
+
 	
 };
