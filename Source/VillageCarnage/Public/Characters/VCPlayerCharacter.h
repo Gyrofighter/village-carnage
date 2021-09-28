@@ -28,6 +28,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Components)
 	UCameraComponent* Camera;
 
+	UFUNCTION(Blueprintcallable)
+	void HitMePlz() 
+	{ 
+		AActor::TakeDamage(1.0f, FDamageEvent{}, GetController(), this); 
+	}
+
 	
 
 	

@@ -17,9 +17,7 @@ public:
 
 	AVCPlayerController();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Components)
-	UPathFollowingComponent* PathFollowing;
-
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Control)
 	TEnumAsByte<ETraceTypeQuery> TouchTraceType = ETraceTypeQuery::TraceTypeQuery1;
 
@@ -37,6 +35,9 @@ protected:
 	virtual void PlayerTick(float DeltaTime) override;
 
 private:	
+
+	UPROPERTY(VisibleDefaultsOnly, Category = Components)
+	UPathFollowingComponent* PathFollowing;
 
 	bool bTouched = false;
 
